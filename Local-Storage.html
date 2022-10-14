@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Stores</title>
+    <style>
+      .contents {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border: 2px solid black;
+        padding: 15px;
+        text-align: center;
+      }
+      #generateButton {
+        margin-top: 5px;
+        margin-bottom: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="contents">
+      <button id="incrementButton">Tambah nilai</button>
+      <button id="clear">Hapus Storage</button>
+      <h3>Kamu sudah menekan Tombol Diatas Sebanyak :</h3>
+      <h2 id="count">0</h2>
+    </div>
+    <script>
+      const localStorageKey = "PRESS_FREQUENCY";
+      if (typeof Storage !== "undefined") {
+        if (localStorage.getItem(localStorageKey) === null) {
+          localStorage.setItem(localStorageKey, 0);
+        }
+        const Incrementbutton = document.querySelector("#incrementButton");
+        const clearButton = document.querySelector("#clear");
+        const countDisplay = document.querySelector("#count");
+
+        countDisplay.innerText = localStorage.getItem(localStorageKey);
+
+        Incrementbutton.addEventListener("click", function () {
+          let count = localStorage.getItem(localStorageKey);
+          count++;
+          localStorage.setItem(localStorageKey, count);
+          countDisplay.innerText = localStorage.getItem(localStorageKey);
+        });
+        clearButton.addEventListener("click", function () {
+          localStorage.removeItem(localStorageKey);
+          countDisplay.innerText = 0;
+        });
+      } else {
+        alert("browser yang anda gunakan tidak mendukung web storage");
+      }
+    </script>
+  </body>
+</html>
